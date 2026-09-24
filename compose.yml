@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: ./source
+    environment:
+      APP_LOG_FILE: /tmp/app-logs/app.log
+      DATABASE_URL: sqlite:////data/addresses.db
+    ports:
+      - "8000:8000"
+    volumes:
+      - api_logs:/tmp/app-logs
+      - api_data:/data
+    restart: unless-stopped
+
+volumes:
+  api_logs:
+  api_data:
