@@ -12,6 +12,16 @@ services:
       - api_data:/data
     restart: unless-stopped
 
+  test:
+    build:
+      context: ./source
+    environment:
+      DATABASE_URL: sqlite:////tmp/test_addresses.db
+    volumes:
+      - ./source/tests:/app/tests
+    command: python -m pytest tests/ -v
+    profiles: ["test"]
+
 volumes:
   api_logs:
   api_data:

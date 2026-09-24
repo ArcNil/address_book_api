@@ -38,11 +38,7 @@ def haversine_distance_km(
 
 
 class AddressService:
-    """Handles all address CRUD and the nearby search.
-
-    Each method opens its own session, so the service is stateless and
-    safe to share; callers never manage sessions themselves.
-    """
+    """Handles all address CRUD and the nearby search."""
 
     def _session(self) -> Session:
         return SessionLocal()

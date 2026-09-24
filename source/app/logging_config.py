@@ -4,11 +4,10 @@ import logging
 import logging.config
 import os
 from pathlib import Path
-import tempfile
 
-WRITABLE_LOG_FILE = Path(tempfile.gettempdir()) / "app-logs" / "app.log"
+from app.config import get_settings
 
-LOG_FILE = Path(os.getenv("APP_LOG_FILE", str(WRITABLE_LOG_FILE)))
+LOG_FILE = Path(os.getenv("APP_LOG_FILE") or get_settings().app_log_file)
 
 LOGGING_CONFIG = {
     "version": 1,

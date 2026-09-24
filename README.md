@@ -37,6 +37,18 @@ By default the database is created at `/tmp/addresses.db` and logs are written
 to `/tmp/app-logs/app.log`. Both locations can be overridden with the
 `DATABASE_URL` and `APP_LOG_FILE` environment variables.
 
+## Tests
+
+The test suite runs inside Docker (no local Python needed):
+
+```bash
+docker compose run --rm test
+```
+
+It spins up a throwaway container, runs `pytest` against an isolated SQLite
+database, and removes itself afterwards. Expected output ends with something
+like `21 passed`.
+
 ## Endpoints
 
 - `POST /addresses` — create an address
