@@ -1,5 +1,7 @@
 """Application entrypoint: wires logging, routes and database creation."""
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
 from app.database import Base, engine
@@ -9,10 +11,13 @@ from app.routes import router as addresses_router
 
 setup_logging()
 
-app = FastAPI(title="Address Book API")
-app.include_router(addresses_router)
 
-
-@app.on_event("startup")
-def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Create database tables on startup."""
     Base.metadata.create_all(bind=engine)
+    yield
+
+
+app = FastAPI(title="Address Book API", lifespan=lifespan)
+app.include_router(addresses_router)

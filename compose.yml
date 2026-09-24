@@ -19,7 +19,7 @@ services:
       DATABASE_URL: sqlite:////tmp/test_addresses.db
     volumes:
       - ./source/tests:/app/tests
-    command: python -m pytest tests/ -v
+    command: python -m pytest tests/ -v -p no:cacheprovider
     profiles: ["test"]
 
 volumes:
